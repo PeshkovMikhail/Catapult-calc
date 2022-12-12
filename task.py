@@ -17,13 +17,13 @@ class MainWindow(QMainWindow):
 
         self.spoon_len = self.newOption("Длина ложки (см)", 0.15)
         self.spring_len = self.newOption("Длина пружины (см)", 0.0837)
-        self.spoon_mass = self.newOption("Масса ложки (г)", 0.035)
+        self.spoon_mass = self.newOption("Масса ложки (г)", 0.06)
         self.bullet_mass = self.newOption("Масса снаряда (г)", 0.06)
-        self.k = self.newOption("Жесткость пружины (Н/м)", 249.0)
+        self.k = self.newOption("Жесткость пружины (Н/м)", 358.0)
         self.x = self.newOption("Отступ по горизонтали (см)", 0.0571)
         self.h = self.newOption("Высота крепления пружины (см)", 0.0785)
         self.mount = self.newOption("Расстояние от оси до крепления к ложке (см)", 0.0949)
-        self.alpha = self.newOption("Начальный угол (градус)", 30.0)
+        self.alpha = self.newOption("Начальный угол (градус)", 34.0)
 
         self.mainLayout.addItem(QSpacerItem(0, 10, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding))
         calc_button = QPushButton("Расчет")
@@ -85,15 +85,16 @@ class MainWindow(QMainWindow):
 
         print("====================")
         print(A)
-
-        A*= ms/(ml+ms)
+        
+        m0=ms/2+ml/3
+        A/=m0
 
 
         h1 = sin(gamma)*l0+0.01435
 
 
 
-        V0= sqrt(2*A/ms)
+        V0= sqrt(A)
 
 
         Vy = cos(gamma)*V0
