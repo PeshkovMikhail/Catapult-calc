@@ -1,7 +1,7 @@
 from math import (cos, sin, atan, pi, sqrt)
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import Qt
-
+from chart import Chart
 g = 9.80655
 dB = 0.00001
 
@@ -9,7 +9,7 @@ dB = 0.00001
 class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-
+        self.windows = []
         self.setWindowTitle("Catapult calculator")
         container = QWidget()
 
@@ -108,15 +108,9 @@ class MainWindow(QMainWindow):
         print(t)
         S = t*Vx-cos(gamma)*l0-x
 
-        msg = QMessageBox()
-        msg.setWindowTitle("Результат")
-        msg.setText(f'''
-        Конечный угол: {round(gamma*180/pi, 3)} градусов
-        Расстояние: {round(S, 3)} м
-        Время полета: {round(t, 3)} с
-        Работа: {round(A, 3)} Дж
-        ''')
-        msg.exec()
+        res = Chart(A, Vx, Vy, t, S, gamma, h1, l0, x)
+        self.windows.append(res)
+        res.show()
     
     def newOption(self, name, default = 0):
         lay = QHBoxLayout()
